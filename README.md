@@ -9,5 +9,4 @@ User authentication and registration using JWT
 Role-based access control (Employee, HR, Admin)
 
 ### Technologies:
-Java, Spring Boot
-Spring Security, JWT
+Java, Spring Boot, Spring Security, JWT
