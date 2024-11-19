@@ -1,6 +1,7 @@
 package com.tekup.staffmanagementapi.auth;
 
 import com.tekup.staffmanagementapi.config.JwtService;
+import com.tekup.staffmanagementapi.user.Role;
 import com.tekup.staffmanagementapi.user.User;
 import com.tekup.staffmanagementapi.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthenticationService {
                 .phone(request.getPhone())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role(Role.HR)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
