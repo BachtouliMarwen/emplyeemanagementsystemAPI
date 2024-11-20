@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/evaluations")
 @RequiredArgsConstructor
-public class evaluationController {
+public class EvaluationController {
 
     private final EvaluationService evaluationService;
 

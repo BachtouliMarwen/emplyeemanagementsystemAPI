@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EvaluationImpl implements EvaluationService {
+public class EvaluationServiceImpl implements EvaluationService {
 
     private final EvaluationRepository evaluationRepository;
     private final UserRepository userRepository;

@@ -56,6 +56,10 @@ public class LeaveRequestServiceImpl implements LeaveRequestService{
         LeaveRequest leaveRequest = leaveRequestRepository.findById(leaveRequestId)
                 .orElseThrow(() -> new RuntimeException("Leave request not found"));
 
+        if (!status.equals(LeaveStatus.APPROVED) && !status.equals(LeaveStatus.REJECTED)) {
+            throw new IllegalArgumentException("Invalid leave status");
+        }
+
         leaveRequest.setStatus(status);
         leaveRequest.setUpdatedAt(LocalDateTime.now());
         return leaveRequestRepository.save(leaveRequest);

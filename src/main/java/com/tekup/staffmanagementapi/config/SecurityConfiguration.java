@@ -42,7 +42,18 @@ public class SecurityConfiguration {
                             "/webjars/**",
                             "/v3/api-docs/**").permitAll();
                     request.requestMatchers("/api/auth/**").permitAll();
-                    request.requestMatchers("/api/user/**").hasRole(Role.HR.name());
+
+                    request.requestMatchers("/api/users/**").hasRole("HR");
+
+                    request.requestMatchers("/api/leave-requests").hasAnyRole("HR","EMPLOYEE");
+                    request.requestMatchers("/api/leave-requests/employee/**").hasRole("EMPLOYEE");
+                    request.requestMatchers("/api/leave-requests/**/status").hasRole("HR");
+                    request.requestMatchers("/api/leave-requests/pending").hasRole("HR");
+
+                    request.requestMatchers("/api/evaluations").hasRole("HR");
+                    request.requestMatchers("/api/evaluations/employee/**").hasRole("HR");
+                    request.requestMatchers("/api/evaluations/evaluator/**").hasRole("HR");
+
                     request.anyRequest().authenticated();
                 })
                 .sessionManagement( session ->

@@ -1,16 +1,18 @@
 package com.tekup.staffmanagementapi.user;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/hr/users")
+@RequiredArgsConstructor
+@RequestMapping("/api/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {

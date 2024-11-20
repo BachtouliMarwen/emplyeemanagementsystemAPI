@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/leaverequests")
+@RequestMapping("/api/leave-requests")
 @RequiredArgsConstructor
 public class LeaveRequestController {
 
@@ -37,7 +37,7 @@ public class LeaveRequestController {
         return ResponseEntity.ok(leaveRequestService.getPendingLeaveRequests());
     }
 
-    @PatchMapping("/{leaveRequestId}}/status")
+    @PatchMapping("/{leaveRequestId}/status")
     public ResponseEntity<LeaveRequest> updateLeaveRequestStatus(
             @PathVariable Long leaveRequestId,
             @RequestParam LeaveStatus status){

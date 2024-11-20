@@ -3,6 +3,7 @@ package com.tekup.staffmanagementapi.user;
 import com.tekup.staffmanagementapi.evaluation.Evaluation;
 import com.tekup.staffmanagementapi.leave.LeaveRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +31,10 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private Integer phone;
+
+    @Email
     private String email;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +48,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+ role.name()));
     }
 
     @Override
