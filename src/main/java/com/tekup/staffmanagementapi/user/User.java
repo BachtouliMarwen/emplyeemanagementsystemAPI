@@ -1,5 +1,7 @@
 package com.tekup.staffmanagementapi.user;
 
+import com.tekup.staffmanagementapi.evaluation.Evaluation;
+import com.tekup.staffmanagementapi.leave.LeaveRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+
     private String firstName;
     private String lastName;
     private Integer phone;
@@ -32,6 +36,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LeaveRequest> leaveRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "evaluator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Evaluation> evaluationsGiven = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,7 +1,15 @@
 package com.tekup.staffmanagementapi.leave;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.multipart.MultipartFile;
 
-public interface LeaveRequestService extends JpaRepository<LeaveRequest, Long> {
+import java.io.IOException;
+import java.util.List;
+
+public interface LeaveRequestService {
+
+    LeaveRequest createLeaveRequest(LeaveRequest leaveRequest, MultipartFile document) throws IOException;
+    List<LeaveRequest> getEmployeeLeaveRequests(Long employeeId);
+    List<LeaveRequest> getPendingLeaveRequests();
+    LeaveRequest updateLeaveRequestStatus(Long leaveRequestId, LeaveStatus status);
 
 }

@@ -1,6 +1,7 @@
 package com.tekup.staffmanagementapi.user;
 
 
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,15 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    public UserRepository userRepository;
-
-    @Autowired
-    public PasswordEncoder passwordEncoder;
-    @Autowired
-    private EmailService emailService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @Override
     public User createUser(User user) {

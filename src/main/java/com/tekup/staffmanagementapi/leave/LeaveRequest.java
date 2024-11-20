@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="leaverequest")
+@Table(name="leave_request")
 public class LeaveRequest {
 
     @Id
@@ -35,6 +35,10 @@ public class LeaveRequest {
     private LeaveStatus status;
 
     private String reason;
+
+    @Lob
+    private byte[] document;
+
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
