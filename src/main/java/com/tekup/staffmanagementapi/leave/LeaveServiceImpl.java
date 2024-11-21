@@ -31,8 +31,8 @@ public class LeaveServiceImpl implements LeaveService {
 
         leaveRequest.setType(leaveRequest.getType());
         leaveRequest.setStatus(LeaveStatus.PENDING);
-        leaveRequest.setCreatedAt(LocalDateTime.now());
-        leaveRequest.setUpdatedAt(LocalDateTime.now());
+        leaveRequest.setStartDate(leaveRequest.getStartDate());
+        leaveRequest.setEndDate(leaveRequest.getEndDate());
 
         if(document != null && document.isEmpty()){
             leaveRequest.setDocument(document.getBytes());

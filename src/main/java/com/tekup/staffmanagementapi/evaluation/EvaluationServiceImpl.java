@@ -32,8 +32,6 @@ public class EvaluationServiceImpl implements EvaluationService {
             throw new IllegalArgumentException("Rating must be between 0 and 5.");
         }
 
-        evaluation.setEvaluationDate(LocalDateTime.now());
-        evaluation.setUpdatedAt(LocalDateTime.now());
         return evaluationRepository.save(evaluation);
     }
 
