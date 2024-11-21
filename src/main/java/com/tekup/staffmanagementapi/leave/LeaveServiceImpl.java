@@ -14,13 +14,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LeaveRequestServiceImpl implements LeaveRequestService{
+public class LeaveServiceImpl implements LeaveService {
 
-    private final LeaveRequestRepository leaveRequestRepository;
+    private final LeaveRepository leaveRequestRepository;
     private final UserRepository userRepository;
 
     @Override
-    public LeaveRequest createLeaveRequest(LeaveRequest leaveRequest, MultipartFile document)
+    public Leave createLeaveRequest(Leave leaveRequest, MultipartFile document)
             throws IOException {
         User employee = userRepository.findById(leaveRequest.getEmployee().getId())
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
@@ -42,18 +42,23 @@ public class LeaveRequestServiceImpl implements LeaveRequestService{
     }
 
     @Override
-    public List<LeaveRequest> getEmployeeLeaveRequests(Long employeeId) {
+    public List<Leave> getAllLeaveRequests() {
+        return leaveRequestRepository.findAll();
+    }
+
+    @Override
+    public List<Leave> getEmployeeLeaveRequests(Long employeeId) {
         return leaveRequestRepository.findByEmployeeId(employeeId);
     }
 
     @Override
-    public List<LeaveRequest> getPendingLeaveRequests() {
+    public List<Leave> getPendingLeaveRequests() {
         return leaveRequestRepository.findByStatus(LeaveStatus.PENDING);
     }
 
     @Override
-    public LeaveRequest updateLeaveRequestStatus(Long leaveRequestId, LeaveStatus status) {
-        LeaveRequest leaveRequest = leaveRequestRepository.findById(leaveRequestId)
+    public Leave updateLeaveRequestStatus(Long leaveRequestId, LeaveStatus status) {
+        Leave leaveRequest = leaveRequestRepository.findById(leaveRequestId)
                 .orElseThrow(() -> new RuntimeException("Leave request not found"));
 
         if (!status.equals(LeaveStatus.APPROVED) && !status.equals(LeaveStatus.REJECTED)) {

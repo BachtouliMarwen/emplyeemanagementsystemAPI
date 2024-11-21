@@ -1,7 +1,7 @@
 package com.tekup.staffmanagementapi.user;
 
 import com.tekup.staffmanagementapi.evaluation.Evaluation;
-import com.tekup.staffmanagementapi.leave.LeaveRequest;
+import com.tekup.staffmanagementapi.leave.Leave;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -41,7 +41,7 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LeaveRequest> leaveRequests = new ArrayList<>();
+    private List<Leave> leaveRequests = new ArrayList<>();
 
     @OneToMany(mappedBy = "evaluator", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evaluation> evaluationsGiven = new ArrayList<>();

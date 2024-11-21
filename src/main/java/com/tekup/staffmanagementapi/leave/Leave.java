@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name="leave_request")
-public class LeaveRequest {
+public class Leave {
 
     @Id
     @GeneratedValue
