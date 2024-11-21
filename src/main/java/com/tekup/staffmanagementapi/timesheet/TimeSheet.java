@@ -1,10 +1,8 @@
 package com.tekup.staffmanagementapi.timesheet;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.tekup.staffmanagementapi.user.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +22,13 @@ public class TimeSheet {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private User employee;
+
     private Date date;
     private Double hoursWorked;
+
+    @Enumerated(EnumType.STRING)
+    private TimeSheetStatus status;
 }
