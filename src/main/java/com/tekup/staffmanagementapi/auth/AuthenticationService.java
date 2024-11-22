@@ -30,10 +30,10 @@ public class AuthenticationService {
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
+
         return  AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
-
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -46,8 +46,19 @@ public class AuthenticationService {
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+
+        String dashboardUrl;
+        if (user.getRole() == Role.HR) {
+            dashboardUrl ="/hr-dashboard";
+        } else if (user.getRole() == Role.EMPLOYEE) {
+            dashboardUrl ="/employee-dashboard";
+        } else {
+            dashboardUrl = "/";
+        }
         return  AuthenticationResponse.builder()
                 .token(jwtToken)
+                .dashboardUrl(dashboardUrl)
+                .role(user.getRole().name())
                 .build();
     }
 }
