@@ -3,6 +3,7 @@ package com.tekup.staffmanagementapi.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,9 @@ public class HRUserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user, Authentication authentication) {
+        System.out.println("Authenticated user: " + authentication.getName());
+        System.out.println("Authorities: " + authentication.getAuthorities());
         return ResponseEntity.ok(userService.createUser(user));
     }
 

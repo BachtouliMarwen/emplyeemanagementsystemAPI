@@ -49,9 +49,9 @@ public class AuthenticationService {
 
         String dashboardUrl;
         if (user.getRole() == Role.HR) {
-            dashboardUrl ="/hr-dashboard";
+            dashboardUrl ="/hr/employees";
         } else if (user.getRole() == Role.EMPLOYEE) {
-            dashboardUrl ="/employee-dashboard";
+            dashboardUrl ="/employee/dashboard";
         } else {
             dashboardUrl = "/";
         }
