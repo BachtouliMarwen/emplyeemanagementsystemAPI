@@ -20,28 +20,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        user.setEmail(user.getEmail());
+        if (user.getFirstName() == null || user.getLastName() == null || user.getEmail() == null) {
+            throw new IllegalArgumentException("First name, last name, and email are required.");
+        }
         String tempPassword = RandomStringUtils.randomAlphanumeric(8);
         user.setPassword(passwordEncoder.encode(tempPassword));
         user.setRole(Role.EMPLOYEE);
+
         User savedUser = userRepository.save(user);
 
         String subject = "Welcome to the Employee Portal";
-        String body = " Your temporary password is : " + tempPassword +
-                "\nUpdate your profile here : ";
+        String body = "Your temporary password is: " + tempPassword + "\nUpdate your profile here: ";
         emailService.sendEmail(savedUser.getEmail(), subject, body);
+
         return savedUser;
     }
 
     @Override
     public User updateUser(User updatedUser, Long id) {
         return userRepository.findById(id).map(user -> {
-            user.setFirstName(updatedUser.getFirstName());
-            user.setLastName(updatedUser.getLastName());
-            user.setPhone(updatedUser.getPhone());
-            user.setPassword(updatedUser.getPassword());
+            if (updatedUser.getFirstName() != null) user.setFirstName(updatedUser.getFirstName());
+            if (updatedUser.getLastName() != null) user.setLastName(updatedUser.getLastName());
+            if (updatedUser.getPhone() != null) user.setPhone(updatedUser.getPhone());
+            if (updatedUser.getPassword() != null) {
+                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            }
             return userRepository.save(user);
-        }).orElseThrow(()-> new RuntimeException("User not found"));
+        }).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Override
@@ -58,5 +63,5 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
-
 }
+

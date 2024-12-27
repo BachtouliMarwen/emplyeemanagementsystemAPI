@@ -20,6 +20,9 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if (request.getFirstName() == null || request.getLastName() == null) {
+            throw new IllegalArgumentException("First name and last name are required.");
+        }
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())

@@ -42,10 +42,7 @@ public class SecurityConfiguration {
                             "/webjars/**",
                             "/v3/api-docs/**").permitAll();
                     request.requestMatchers("/api/auth/**").permitAll();
-
-                    request.requestMatchers("/api/hr/**").hasRole("HR");
-                    request.requestMatchers("/api/employees/**").hasRole("EMPLOYEE");
-
+                    request.requestMatchers("/api/**").authenticated();
                     request.anyRequest().authenticated();
                 })
                 .sessionManagement( session ->
